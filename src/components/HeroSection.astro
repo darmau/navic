@@ -1,0 +1,16 @@
+---
+import { Image } from "astro:assets";
+import heroImage from "@/images/navic_top.avif";
+import buildingImage from "@/images/building.avif";
+---
+
+<section>
+  <div>
+    <h1>人とのつながりを大切に。 様々な分野で新たな価値を生み出していく。</h1>
+    <Image src={heroImage} alt="hero image" width={800} height={600} />
+  </div>
+  <div>
+    <h3>常に先を見据えた 事業展開で 新たな未来を切り開く。</h3>
+    <Image src={buildingImage} alt="building image" width={800} height={600} />
+  </div>
+</section>
