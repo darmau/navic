@@ -1,0 +1,59 @@
+[
+  {
+    "label": "車用品\n卸販売\n外注取付",
+    "icons": [
+      "@/src/images/logo/clevers_nagoya.avif"
+    ]
+  },
+  {
+    "label": "車用品\nEC事業",
+    "icons": [
+      "@/src/images/logo/creer_online_shop.avif"
+    ]
+  },
+  {
+    "label": "自社商品開発",
+    "icons": [
+      "@/src/images/logo/clezeed.avif"
+    ]
+  },
+  {
+    "label": "豊橋リテール",
+    "icons": [
+      "@/src/images/logo/feel_toyohashi.gif",
+      "@/src/images/logo/clevers.avif",
+      "@/src/images/logo/glanzeal.avif"
+    ]
+  },
+  {
+    "label": "健康",
+    "icons": [
+      "@/src/images/logo/kennkou.avif"
+    ]
+  },
+  {
+    "label": "レンタル",
+    "icons": [
+      "@/src/images/logo/rental.avif"
+    ]
+  },
+  {
+    "label": "グループ事業",
+    "icons": [
+      "@/src/images/logo/mimitakara.avif"
+    ]
+  },
+  {
+    "label": "貿易",
+    "icons": [
+      "@/src/images/logo/hit-air.avif",
+      "@/src/images/logo/j&a_racing_oil.avif"
+    ]
+  },
+  {
+    "label": "レンタル",
+    "icons": [
+      "@/src/images/logo/navic_client.avif"
+    ]
+  }
+]
