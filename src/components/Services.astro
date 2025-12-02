@@ -1,0 +1,175 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import brands from "@/data/brands.json";
+
+const iconModules = import.meta.glob("../images/logo/*", { eager: true });
+
+const iconByName = Object.fromEntries(
+  Object.entries(iconModules).map(([path, mod]) => {
+    const image = (mod as { default: ImageMetadata }).default ?? mod;
+    return [path.split("/").pop()!, image];
+  })
+);
+
+const positionedBrands = brands.map((brand, index, arr) => {
+  const angle = (index / arr.length) * Math.PI * 2 - Math.PI / 2;
+  const radius = 42;
+  const x = 50 + radius * Math.cos(angle);
+  const y = 50 + radius * Math.sin(angle);
+
+  return {
+    ...brand,
+    lines: brand.label.split("\n"),
+    iconImages: brand.icons
+      .map((iconPath) => {
+      const name = iconPath.split("/").pop() ?? iconPath;
+      return iconByName[name] ?? iconPath;
+      })
+      .filter(Boolean),
+    position: { x, y },
+  };
+});
+
+const linkPoints =
+  positionedBrands.length > 1
+    ? [...positionedBrands, positionedBrands[0]]
+        .map((brand) => `${brand.position.x},${brand.position.y}`)
+        .join(" ")
+    : "";
+---
+
+<section class="services">
+  <div class="orbit">
+    {linkPoints && (
+      <svg class="links" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <polyline points={linkPoints} />
+      </svg>
+    )}
+    {positionedBrands.map((brand) => (
+      <div
+        class="service"
+        style={`left:${brand.position.x}%; top:${brand.position.y}%;`}
+      >
+        <div class="badge">
+          <div class="label">
+            {brand.lines.map((line) => (
+              <span>{line}</span>
+            ))}
+          </div>
+          <div class="icons">
+            {brand.iconImages.map((icon, iconIndex) =>
+              typeof icon === "string" ? (
+                <img src={icon} alt={`${brand.label} icon ${iconIndex + 1}`} loading="lazy" />
+              ) : (
+                <Image
+                  src={icon}
+                  alt={`${brand.label} icon ${iconIndex + 1}`}
+                  width={60}
+                  height={60}
+                  loading="lazy"
+                />
+              )
+            )}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .services {
+    display: flex;
+    justify-content: center;
+    padding: 5rem 1rem;
+  }
+
+  .orbit {
+    position: relative;
+    width: min(90vw, 900px);
+    aspect-ratio: 1 / 1;
+    max-width: 760px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, #f8fbff 0%, #eef3f9 55%, #e1e8f1 100%);
+  }
+
+  .service {
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+
+  .links {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .links polyline {
+    fill: none;
+    stroke: #c9d6e8;
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+  }
+
+  .badge {
+    width: 140px;
+    height: 140px;
+    padding: 1rem;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(45, 69, 110, 0.12), 0 2px 6px rgba(45, 69, 110, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.65rem;
+    text-align: center;
+  }
+
+  .label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-weight: 700;
+    color: #1f2a44;
+    line-height: 1.2;
+    font-size: 0.9rem;
+  }
+
+  .icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35rem;
+  }
+
+  .icons img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    background: #f4f7fb;
+    border-radius: 12px;
+    padding: 6px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+  }
+
+  @media (max-width: 640px) {
+    .services {
+      padding: 3rem 0.5rem 4rem;
+    }
+
+    .orbit {
+      width: min(95vw, 540px);
+    }
+
+    .badge {
+      width: 120px;
+      height: 120px;
+      padding: 0.85rem;
+    }
+  }
+</style>
