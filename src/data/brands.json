@@ -18,11 +18,9 @@
     ]
   },
   {
-    "label": "豊橋リテール",
+    "label": "豊橋\nリテール",
     "icons": [
-      "@/src/images/logo/feel_toyohashi.gif",
-      "@/src/images/logo/clevers.avif",
-      "@/src/images/logo/glanzeal.avif"
+      "@/src/images/logo/feel_toyohashi.gif"
     ]
   },
   {

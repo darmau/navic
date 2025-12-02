@@ -76,8 +76,8 @@ const linkPoints =
                     <Image
                       src={icon}
                       alt={`${brand.label} icon ${iconIndex + 1}`}
-                      width={60}
-                      height={60}
+                      width={120}
+                      height={120}
                       loading="lazy"
                     />
                   )
@@ -102,7 +102,7 @@ const linkPoints =
 
   .orbit {
     position: relative;
-    width: 100%;
+    width: 90%;
     aspect-ratio: 1 / 1;
     margin: auto;
   }
@@ -128,9 +128,9 @@ const linkPoints =
   }
 
   .badge {
-    width: 80px;
-    height: 80px;
-    padding: 1rem;
+    width: clamp(70px, 18vw, 120px);
+    height: clamp(70px, 18vw, 120px);
+    padding: clamp(0.75rem, 2.5vw, 1rem);
     border-radius: 50%;
     background: #ffffff;
     box-shadow:
@@ -140,30 +140,37 @@ const linkPoints =
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 0.65rem;
+    gap: clamp(0.4rem, 1.5vw, 0.65rem);
     text-align: center;
   }
 
   .label {
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: clamp(0.1rem, 0.5vw, 0.2rem);
     font-weight: 700;
     color: #1f2a44;
     line-height: 1.2;
-    font-size: 0.9rem;
+    font-size: clamp(0.7rem, 2.2vw, 0.9rem);
   }
 
   .icons {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    flex-wrap: nowrap;
     justify-content: center;
-    gap: 0.35rem;
+    align-items: center;
+    gap: -2px;
+    max-width: 100%;
+    width: 100%;
   }
 
   .icons img {
-    width: 100%;
+    width: auto;
+    height: 100%;
+    max-height: 36px;
     object-fit: contain;
+    flex-shrink: 0;
   }
 
   @media (min-width: 640px) {
@@ -176,9 +183,47 @@ const linkPoints =
     }
 
     .badge {
-      width: 120px;
-      height: 120px;
-      padding: 0.85rem;
+      width: clamp(100px, 15vw, 120px);
+      height: clamp(100px, 15vw, 120px);
+      padding: clamp(0.75rem, 2.5vw, 0.85rem);
+    }
+
+    .label {
+      font-size: clamp(0.85rem, 2.2vw, 0.9rem);
+    }
+
+    .icons {
+      flex-wrap: wrap;
+    }
+
+    .icons img {
+      width: 100%;
+      height: clamp(36px, 3.5vw, 48px) !important;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .services {
+      padding: 8rem 0;
+    }
+    .orbit {
+      width: min(95vw, 720px);
+    }
+    .badge {
+      width: clamp(120px, 18vw, 180px);
+      height: clamp(120px, 18vw, 180px);
+      padding: clamp(1rem, 3vw, 1.2rem);
+      gap: clamp(0.65rem, 2vw, 0.8rem);
+    }
+
+    .label {
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      gap: clamp(0.2rem, 0.6vw, 0.3rem);
+    }
+
+    .icons img {
+      width: auto;
+      height: clamp(48px, 4vw, 56px) !important;
     }
   }
 </style>
