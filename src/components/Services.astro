@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import brands from "@/data/brands.json";
 import { mapGlobToImages } from "@/utils/imageMap";
+import navicLogo from "@/images/navic_logo.png";
 
 const iconModules = import.meta.glob("../images/logo/*", { eager: true });
 const iconByName = mapGlobToImages(iconModules);
@@ -52,6 +53,15 @@ const linkPoints =
           </svg>
         )
       }
+      <div class="center-logo">
+        <Image
+          src={navicLogo}
+          alt="NAVIC Logo"
+          width={600}
+          height={600}
+          class="logo-image"
+        />
+      </div>
       {
         positionedBrands.map((brand) => (
           <div
@@ -127,6 +137,23 @@ const linkPoints =
     stroke-linejoin: round;
   }
 
+  .center-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-image {
+    width: clamp(180px, 15vw, 360px);
+    height: auto;
+    object-fit: contain;
+  }
+
   .badge {
     width: clamp(70px, 18vw, 120px);
     height: clamp(70px, 18vw, 120px);
@@ -182,6 +209,10 @@ const linkPoints =
       width: min(95vw, 540px);
     }
 
+    .logo-image {
+      width: clamp(240px, 12vw, 360px);
+    }
+
     .badge {
       width: clamp(100px, 15vw, 120px);
       height: clamp(100px, 15vw, 120px);
@@ -209,6 +240,11 @@ const linkPoints =
     .orbit {
       width: min(95vw, 720px);
     }
+
+    .logo-image {
+      width: clamp(360px, 18vw, 540px);
+    }
+
     .badge {
       width: clamp(120px, 18vw, 180px);
       height: clamp(120px, 18vw, 180px);
