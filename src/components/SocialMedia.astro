@@ -38,24 +38,35 @@ const slides = socialMedia.map((item) => {
     const root = document.querySelector("[data-carousel]");
     if (!root) return;
 
-    const slides = Array.from(root.querySelectorAll("[data-slide]"));
+    const slides = Array.from(root.querySelectorAll("[data-slide]")) as HTMLElement[];
     const prev = root.querySelector("[data-prev]");
     const next = root.querySelector("[data-next]");
 
     let index = 0;
     let timer: ReturnType<typeof setInterval> | undefined;
+    let direction: "next" | "prev" = "next";
 
-    const applyActive = (nextIndex: number) => {
+    const applyActive = (nextIndex: number, dir: "next" | "prev") => {
       if (!slides.length) return;
+
+      const prevIndex = index;
       index = (nextIndex + slides.length) % slides.length;
+      direction = dir;
+
       slides.forEach((slide, i) => {
-        slide.classList.toggle("is-active", i === index);
+        slide.classList.remove("is-active", "is-prev", "is-next", "slide-out-left", "slide-out-right");
+
+        if (i === index) {
+          slide.classList.add("is-active", dir === "next" ? "is-next" : "is-prev");
+        } else if (i === prevIndex && prevIndex !== index) {
+          slide.classList.add(dir === "next" ? "slide-out-left" : "slide-out-right");
+        }
       });
     };
 
     const start = () => {
       stop();
-      timer = setInterval(() => applyActive(index + 1), 3000);
+      timer = setInterval(() => applyActive(index + 1, "next"), 3000);
     };
 
     const stop = () => {
@@ -66,12 +77,12 @@ const slides = socialMedia.map((item) => {
     };
 
     const goPrev = () => {
-      applyActive(index - 1);
+      applyActive(index - 1, "prev");
       start();
     };
 
     const goNext = () => {
-      applyActive(index + 1);
+      applyActive(index + 1, "next");
       start();
     };
 
@@ -81,11 +92,11 @@ const slides = socialMedia.map((item) => {
     root.addEventListener("pointerenter", stop);
     root.addEventListener("pointerleave", start);
 
-    applyActive(0);
+    slides[0]?.classList.add("is-active", "no-animation");
+    setTimeout(() => slides[0]?.classList.remove("no-animation"), 50);
     start();
   }
 
-  // 支持初次加载和 View Transitions
   document.addEventListener("DOMContentLoaded", initCarousel);
   document.addEventListener("astro:page-load", initCarousel);
 </script>
@@ -129,18 +140,88 @@ const slides = socialMedia.map((item) => {
     inset: 0;
     opacity: 0;
     visibility: hidden;
-    transform: scale(0.98);
-    transition: opacity 400ms ease, transform 400ms ease;
+    transform: translateX(100%);
+    transition: transform 500ms ease, opacity 500ms ease;
     display: grid;
     place-items: center;
     z-index: 0;
   }
 
+  .slide.no-animation {
+    transition: none;
+  }
+
   .slide.is-active {
     opacity: 1;
     visibility: visible;
-    transform: scale(1);
+    transform: translateX(0);
     z-index: 1;
+  }
+
+  .slide.is-active.is-next {
+    animation: slideInFromRight 500ms ease forwards;
+  }
+
+  .slide.is-active.is-prev {
+    animation: slideInFromLeft 500ms ease forwards;
+  }
+
+  .slide.slide-out-left {
+    opacity: 1;
+    visibility: visible;
+    animation: slideOutToLeft 500ms ease forwards;
+    z-index: 0;
+  }
+
+  .slide.slide-out-right {
+    opacity: 1;
+    visibility: visible;
+    animation: slideOutToRight 500ms ease forwards;
+    z-index: 0;
+  }
+
+  @keyframes slideInFromRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInFromLeft {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideOutToLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideOutToRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
   }
 
   .slide img {
