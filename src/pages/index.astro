@@ -3,10 +3,12 @@ import HeroSection from "@/components/HeroSection.astro";
 import Services from "@/components/Services.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import News from "@/components/News.astro";
+import SocialMedia from "@/components/SocialMedia.astro";
 ---
 
 <BaseLayout title="Astro">
   <HeroSection />
   <Services />
   <News />
+  <SocialMedia client:load />
 </BaseLayout>

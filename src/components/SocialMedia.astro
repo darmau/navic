@@ -1,0 +1,215 @@
+---
+import { Image } from "astro:assets";
+import socialMedia from "@/data/social_media.json";
+import { mapGlobToImages } from "@/utils/imageMap";
+
+const mediaModules = import.meta.glob("../images/social/*", { eager: true });
+const mediaByName = mapGlobToImages(mediaModules);
+
+const slides = socialMedia.map((item) => {
+  const name = item.image.split("/").pop() ?? item.image;
+  return { ...item, image: mediaByName[name] ?? item.image };
+});
+---
+
+<section class="social">
+  <header class="social__header">
+    <div>
+      <h2>ソーシャルメディア</h2>
+      <span>social media</span>
+    </div>
+  </header>
+
+  <div class="carousel" data-carousel>
+    <div class="carousel__viewport">
+      {slides.map((slide, index) => (
+        <div class={`slide ${index === 0 ? "is-active" : ""}`} data-slide>
+          {typeof slide.image === "string" ? (
+            <img src={slide.image} alt={slide.alt} loading="lazy" />
+          ) : (
+            <Image src={slide.image} alt={slide.alt} width={960} height={540} loading="lazy" />
+          )}
+          <div class="slide__caption">{slide.alt}</div>
+        </div>
+      ))}
+    </div>
+    <button class="carousel__control prev" type="button" aria-label="前へ" data-prev>‹</button>
+    <button class="carousel__control next" type="button" aria-label="次へ" data-next>›</button>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector("[data-carousel]");
+    if (!root) return;
+
+    const slides = Array.from(root.querySelectorAll("[data-slide]"));
+    const prev = root.querySelector("[data-prev]");
+    const next = root.querySelector("[data-next]");
+
+    let index = 0;
+    let timer;
+
+    const applyActive = (nextIndex) => {
+      if (!slides.length) return;
+      index = (nextIndex + slides.length) % slides.length;
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("is-active", i === index);
+      });
+    };
+
+    const start = () => {
+      stop();
+      timer = setInterval(() => applyActive(index + 1), 3000);
+    };
+
+    const stop = () => {
+      if (timer) {
+        clearInterval(timer);
+        timer = undefined;
+      }
+    };
+
+    const goPrev = () => {
+      applyActive(index - 1);
+      start();
+    };
+
+    const goNext = () => {
+      applyActive(index + 1);
+      start();
+    };
+
+    prev?.addEventListener("click", goPrev);
+    next?.addEventListener("click", goNext);
+
+    root.addEventListener("pointerenter", stop);
+    root.addEventListener("pointerleave", start);
+
+    applyActive(0);
+    start();
+  })();
+</script>
+
+<style>
+  .social {
+    padding: 4rem 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .social__header h2 {
+    font-size: 1.8rem;
+    margin: 0;
+  }
+
+  .social__header span {
+    color: #6b7280;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+
+  .carousel {
+    position: relative;
+    margin-top: 1.5rem;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 18px 40px rgba(27, 48, 84, 0.18), 0 6px 12px rgba(27, 48, 84, 0.1);
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+  }
+
+  .carousel__viewport {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.98);
+    transition: opacity 400ms ease, transform 400ms ease;
+    display: grid;
+    place-items: center;
+    z-index: 0;
+  }
+
+  .slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    z-index: 1;
+  }
+
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .slide__caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.9rem 1.2rem;
+    color: #f8fafc;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+
+  .carousel__control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.85);
+    color: #111827;
+    font-size: 1.8rem;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background 180ms ease, transform 180ms ease;
+    z-index: 2;
+  }
+
+  .carousel__control:hover {
+    background: #ffffff;
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  .carousel__control:active {
+    transform: translateY(-50%) scale(0.98);
+  }
+
+  .carousel__control.prev {
+    left: 16px;
+  }
+
+  .carousel__control.next {
+    right: 16px;
+  }
+
+  @media (max-width: 640px) {
+    .carousel__control {
+      width: 38px;
+      height: 38px;
+      font-size: 1.4rem;
+    }
+
+    .carousel__control.prev {
+      left: 10px;
+    }
+
+    .carousel__control.next {
+      right: 10px;
+    }
+  }
+</style>

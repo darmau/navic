@@ -1,0 +1,30 @@
+[
+  {
+    "alt": "NAVICオリジナルCM",
+    "image": "@/src/images/social/social1.jpg"
+  },
+  {
+    "alt": "CLEZEED公式Youtube",
+    "image": "@/src/images/social/social2.webp"
+  },
+  {
+    "alt": "豊橋モーターズ",
+    "image": "@/src/images/social/social3.jpg"
+  },
+  {
+    "alt": "レース活動",
+    "image": "@/src/images/social/social4.jpg"
+  },
+  {
+    "alt": "レース活動",
+    "image": "@/src/images/social/social5.jpg"
+  },
+  {
+    "alt": "レース活動",
+    "image": "@/src/images/social/social6.jpg"
+  },
+  {
+    "alt": "レース活動",
+    "image": "@/src/images/social/social7.jpg"
+  }
+]
