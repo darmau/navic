@@ -1,0 +1,73 @@
+---
+import footer from "@/data/footer.json";
+---
+
+<footer>
+  <div>
+    <ul>
+      {footer.top_links.map((link) => (
+        <li>
+          {link}
+        </li>
+      ))}
+    </ul>
+  </div>
+  <div>
+    <div>
+      <div>
+        <h3>{footer.company_info.title}</h3>
+        <ul>
+          {footer.company_info.items.map((item) => (
+            <li>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3>{footer.services.title}</h3>
+        <ul>
+          {footer.services.items.map((item) => (
+            <li>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3>{footer.recruit.title}</h3>
+        <ul>
+          {footer.recruit.items.map((item) => (
+            <li>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3>{footer.social_media.title}</h3>
+        <ul>
+          {footer.social_media.items.map((item) => (
+            <li>
+              {item}
+            </li>
+          ))}
+        </ul>
+        <ul>
+          {footer.legal.map((item) => (
+            <li>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <ul>
+      {footer.channels.map((item) => (
+        <li>
+          {item}
+        </li>
+      ))}
+    </ul>
+  </div>
+</footer>
