@@ -16,18 +16,18 @@ const items = navItems as NavItem[];
       <img
         src={navicLogo.src ?? navicLogo}
         alt="Navic logo"
-        class="h-24 w-auto object-contain"
+        class="h-16 lg:h-18 xl:h-24 w-auto object-contain"
         loading="lazy"
       />
     </a>
     
     <!-- Desktop Menu (hidden on mobile) -->
-    <ul class="hidden md:flex items-center gap-3 text-lg text-sky-900/70 sm:gap-5">
+    <ul class="hidden lg:flex items-center gap-3 text-sm xl:text-lg text-sky-900/70 sm:gap-5">
       {items.map((item) => (
         <li class="relative group">
           <button
             type="button"
-            class="flex items-center gap-1 rounded-md px-3 py-2 transition hover:bg-gray-100"
+            class="flex items-center gap-1 rounded-md 2xl:px-3 py-2 transition hover:bg-gray-100"
           >
             <span>{item.label}</span>
           </button>
@@ -52,7 +52,7 @@ const items = navItems as NavItem[];
     <button
       id="mobile-menu-button"
       type="button"
-      class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500"
+      class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500"
       aria-label="メニューを開く"
       aria-expanded="false"
     >
