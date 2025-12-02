@@ -33,42 +33,61 @@ const linkPoints =
     : "";
 ---
 
-<section class="services">
-  <div class="orbit">
-    {linkPoints && (
-      <svg class="links" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-        <polyline points={linkPoints} />
-      </svg>
-    )}
-    {positionedBrands.map((brand) => (
-      <div
-        class="service"
-        style={`left:${brand.position.x}%; top:${brand.position.y}%;`}
-      >
-        <div class="badge">
-          <div class="label">
-            {brand.lines.map((line) => (
-              <span>{line}</span>
-            ))}
+<section class="my-12 md:my-16">
+  <header class="bg-sky-50/50 text-center py-8 md:py-12">
+    <h2 class="text-2xl font-bold text-sky-900 md:text-5xl">NAVICの取り組み</h2>
+    <h3 class="uppercase text-sky-950 font-medium">our service</h3>
+  </header>
+  <div class="services">
+    <div class="orbit">
+      {
+        linkPoints && (
+          <svg
+            class="links"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <polyline points={linkPoints} />
+          </svg>
+        )
+      }
+      {
+        positionedBrands.map((brand) => (
+          <div
+            class="service"
+            style={`left:${brand.position.x}%; top:${brand.position.y}%;`}
+          >
+            <div class="badge">
+              <div class="label">
+                {brand.lines.map((line) => (
+                  <span>{line}</span>
+                ))}
+              </div>
+              <div class="icons">
+                {brand.iconImages.map((icon, iconIndex) =>
+                  typeof icon === "string" ? (
+                    <img
+                      src={icon}
+                      alt={`${brand.label} icon ${iconIndex + 1}`}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <Image
+                      src={icon}
+                      alt={`${brand.label} icon ${iconIndex + 1}`}
+                      width={60}
+                      height={60}
+                      loading="lazy"
+                    />
+                  )
+                )}
+              </div>
+            </div>
           </div>
-          <div class="icons">
-            {brand.iconImages.map((icon, iconIndex) =>
-              typeof icon === "string" ? (
-                <img src={icon} alt={`${brand.label} icon ${iconIndex + 1}`} loading="lazy" />
-              ) : (
-                <Image
-                  src={icon}
-                  alt={`${brand.label} icon ${iconIndex + 1}`}
-                  width={60}
-                  height={60}
-                  loading="lazy"
-                />
-              )
-            )}
-          </div>
-        </div>
-      </div>
-    ))}
+        ))
+      }
+    </div>
   </div>
 </section>
 
@@ -76,17 +95,16 @@ const linkPoints =
   .services {
     display: flex;
     justify-content: center;
-    padding: 5rem 1rem;
+    width: 100%;
+    padding: 2rem 0;
+    background: rgba(180, 209, 230, 0.62);
   }
 
   .orbit {
     position: relative;
-    width: min(90vw, 900px);
+    width: 100%;
     aspect-ratio: 1 / 1;
-    max-width: 760px;
-    margin: 0 auto;
-    border-radius: 50%;
-    background: radial-gradient(circle at 50% 50%, #f8fbff 0%, #eef3f9 55%, #e1e8f1 100%);
+    margin: auto;
   }
 
   .service {
@@ -104,18 +122,20 @@ const linkPoints =
 
   .links polyline {
     fill: none;
-    stroke: #c9d6e8;
-    stroke-width: 1.5;
+    stroke: rgb(20, 80, 140);
+    stroke-width: 0.2;
     stroke-linejoin: round;
   }
 
   .badge {
-    width: 140px;
-    height: 140px;
+    width: 80px;
+    height: 80px;
     padding: 1rem;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 10px 30px rgba(45, 69, 110, 0.12), 0 2px 6px rgba(45, 69, 110, 0.08);
+    box-shadow:
+      0 10px 30px rgba(45, 69, 110, 0.12),
+      0 2px 6px rgba(45, 69, 110, 0.08);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -142,18 +162,13 @@ const linkPoints =
   }
 
   .icons img {
-    width: 50px;
-    height: 50px;
+    width: 100%;
     object-fit: contain;
-    background: #f4f7fb;
-    border-radius: 12px;
-    padding: 6px;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
   }
 
-  @media (max-width: 640px) {
+  @media (min-width: 640px) {
     .services {
-      padding: 3rem 0.5rem 4rem;
+      width: 100%;
     }
 
     .orbit {
