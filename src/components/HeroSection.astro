@@ -5,46 +5,54 @@ import buildingImage from "@/images/building.avif";
 ---
 
 <section class="space-y-16 md:space-y-24">
+  <div class="relative w-full overflow-hidden sm:overflow-visible">
+    <div class="relative sm:mx-auto sm:max-w-7xl sm:px-6 lg:px-8">
+      <!-- Image Container -->
+      <div
+        class="relative w-full h-[60vh] sm:absolute sm:inset-y-0 sm:left-[40%] sm:w-[calc(10%+50vw)] sm:h-full"
+      >
+        <Image
+          src={heroImage}
+          alt="hero image"
+          width={1600}
+          height={900}
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-black/20 sm:hidden"></div>
+      </div>
 
-  <div class="relative mx-auto max-w-7xl my-8 px-4 sm:px-6 lg:px-8 md:overflow-visible">
-    <div class="flex flex-col md:flex-row items-start gap-8 md:gap-12 md:overflow-visible">
-
-      <div class="flex-1 relative z-10 md:pt-16 lg:pt-24 md:overflow-visible md:min-w-0">
-        <h1 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-sky-900 leading-tight md:whitespace-nowrap md:pr-8">
+      <!-- Text Container -->
+      <div
+        class="absolute inset-0 flex items-center justify-center sm:relative sm:inset-auto sm:h-auto sm:block sm:py-32 lg:py-56 sm:w-[40%]"
+      >
+        <h1
+          class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white sm:text-sky-900 leading-tight text-center sm:text-left px-4 sm:px-0 drop-shadow-md sm:drop-shadow-none sm:whitespace-nowrap"
+        >
           人とのつながりを大切に。<br />
           様々な分野で新たな価値を生み出していく。
         </h1>
-      </div>
-      
-      <div class="flex-1 relative w-full md:w-auto md:mt-16 lg:mt-24 md:z-0 md:flex-shrink-0">
-        <div class="relative">
-          <Image 
-            src={heroImage} 
-            alt="hero image" 
-            width={800} 
-            height={600}
-            class="w-full h-auto rounded-lg shadow-lg"
-          />
-        </div>
       </div>
     </div>
   </div>
 
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-
+    <div
+      class="flex flex-col flex-col-reverse md:flex-row items-center gap-8 md:gap-12"
+    >
       <div class="flex-1 w-full md:w-auto">
-        <Image 
-          src={buildingImage} 
-          alt="building image" 
-          width={800} 
+        <Image
+          src={buildingImage}
+          alt="building image"
+          width={800}
           height={600}
           class="w-full h-auto rounded-lg shadow-lg"
         />
       </div>
-      
+
       <div class="flex-1">
-        <h3 class="text-3xl lg:text-4xl font-bold text-sky-800 leading-tight">
+        <h3
+          class="text-center lg:text-left text-3xl lg:text-4xl font-bold text-sky-800 leading-tight"
+        >
           常に先を見据えた<br />
           事業展開で<br />
           新たな未来を切り開く。
