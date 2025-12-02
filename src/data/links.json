@@ -1,0 +1,54 @@
+[
+  {
+    "title": "レンタル事業",
+    "image": "@/src/images/link/link1.jpg"
+  },
+  {
+    "title": "J&Aオイル",
+    "image": "@/src/images/link/link2.jpg"
+  },
+  {
+    "title": "CLEZEED(旧CLESEED)ショップサイト",
+    "image": "@/src/images/link/link3.jpg"
+  },
+  {
+    "title": "クレールオンラインショップ",
+    "image": "@/src/images/link/link4.jpg"
+  },
+  {
+    "title": "クレヴァーズ豊橋店",
+    "image": "@/src/images/link/link5.jpg"
+  },
+  {
+    "title": "グランジール豊橋店",
+    "image": "@/src/images/link/link6.jpg"
+  },
+  {
+    "title": "FEEL豊橋店",
+    "image": "@/src/images/link/link7.jpg"
+  },
+  {
+    "title": "健康クレール",
+    "image": "@/src/images/link/link8.png"
+  },
+  {
+    "title": "キャンピングカーレンタル",
+    "image": "@/src/images/link/link9.jpg"
+  },
+  {
+    "title": "Mimitakara",
+    "image": "@/src/images/link/link10.jpg"
+  },
+  {
+    "title": "クレヴァーズ名古屋",
+    "image": "@/src/images/link/link11.jpg"
+  },
+  {
+    "title": "NAVIC公式ショップ",
+    "image": "@/src/images/link/link12.png"
+  },
+  {
+    "title": "バイク用ナトリウムイオンバッテリー",
+    "image": "@/src/images/link/link13.jpg"
+  }
+]
