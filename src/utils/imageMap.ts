@@ -1,5 +1,5 @@
 import type { ImageMetadata } from "astro";
-
+// This function is used to map a glob result to a record of images.
 export function mapGlobToImages(
   globResult: Record<string, unknown>
 ): Record<string, ImageMetadata | string> {
