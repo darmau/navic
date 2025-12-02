@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import socialMedia from "@/data/social_media.json";
 import { mapGlobToImages } from "@/utils/imageMap";
+import SectionHeader from "./SectionHeader.astro";
 
 const mediaModules = import.meta.glob("../images/social/*", { eager: true });
 const mediaByName = mapGlobToImages(mediaModules);
@@ -12,13 +13,8 @@ const slides = socialMedia.map((item) => {
 });
 ---
 
-<section class="social">
-  <header class="social__header">
-    <div>
-      <h2>ソーシャルメディア</h2>
-      <span>social media</span>
-    </div>
-  </header>
+<section class="my-12 md:my-16">
+  <SectionHeader title="ソーシャルメディア" subtitle="social media" />
 
   <div class="carousel" data-carousel>
     <div class="carousel__viewport">
@@ -29,7 +25,6 @@ const slides = socialMedia.map((item) => {
           ) : (
             <Image src={slide.image} alt={slide.alt} width={960} height={540} loading="lazy" />
           )}
-          <div class="slide__caption">{slide.alt}</div>
         </div>
       ))}
     </div>
@@ -38,8 +33,8 @@ const slides = socialMedia.map((item) => {
   </div>
 </section>
 
-<script is:inline>
-  (() => {
+<script>
+  function initCarousel() {
     const root = document.querySelector("[data-carousel]");
     if (!root) return;
 
@@ -48,9 +43,9 @@ const slides = socialMedia.map((item) => {
     const next = root.querySelector("[data-next]");
 
     let index = 0;
-    let timer;
+    let timer: ReturnType<typeof setInterval> | undefined;
 
-    const applyActive = (nextIndex) => {
+    const applyActive = (nextIndex: number) => {
       if (!slides.length) return;
       index = (nextIndex + slides.length) % slides.length;
       slides.forEach((slide, i) => {
@@ -88,7 +83,11 @@ const slides = socialMedia.map((item) => {
 
     applyActive(0);
     start();
-  })();
+  }
+
+  // 支持初次加载和 View Transitions
+  document.addEventListener("DOMContentLoaded", initCarousel);
+  document.addEventListener("astro:page-load", initCarousel);
 </script>
 
 <style>
@@ -111,7 +110,8 @@ const slides = socialMedia.map((item) => {
 
   .carousel {
     position: relative;
-    margin-top: 1.5rem;
+    margin: 16px auto;
+    max-width: 768px;
     overflow: hidden;
     border-radius: 16px;
     box-shadow: 0 18px 40px rgba(27, 48, 84, 0.18), 0 6px 12px rgba(27, 48, 84, 0.1);
@@ -197,7 +197,10 @@ const slides = socialMedia.map((item) => {
     right: 16px;
   }
 
-  @media (max-width: 640px) {
+  @media (min-width: 640px) {
+    .carousel {
+      margin: 48px auto;
+    }
     .carousel__control {
       width: 38px;
       height: 38px;
